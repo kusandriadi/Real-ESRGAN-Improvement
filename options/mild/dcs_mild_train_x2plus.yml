@@ -40,7 +40,7 @@ datasets:
     type: RealESRGANDataset
     use_amp: true
     dataroot_gt: datasets/1_mild/train
-    meta_info: datasets/1_mild/train/meta_info_x2_mild.txt
+    meta_info: datasets/1_mild/train/meta_info_mild.txt
     io_backend:
       type: disk
 
@@ -62,7 +62,7 @@ datasets:
 
     final_sinc_prob: 0.8
 
-    gt_size: 256
+    gt_size: 64
     use_hflip: True
     use_rot: False
 
@@ -81,6 +81,13 @@ datasets:
   #   dataroot_lq: path_to_lq
   #   io_backend:
   #     type: disk
+  val:
+    name: validation
+    type: PairedImageDataset
+    dataroot_gt: inputs/mild/hr2x
+    dataroot_lq: inputs/mild/lr
+    io_backend:
+      type: disk
 
 # network structures
 network_g:
@@ -122,7 +129,7 @@ train:
 
   scheduler:
     type: MultiStepLR
-    milestones: [400000]
+    milestones: [5000]
     gamma: 0.5
 
   total_iter: 5000
@@ -178,12 +185,15 @@ val:
   metrics:
     psnr:
       type: calculate_psnr
-      crop_border: 4
+      crop_border: 2
       test_y_channel: false
     ssim:
       type: calculate_ssim
-      crop_border: 4
+      crop_border: 2
       test_y_channel: false
+    niqe:
+      type: calculate_niqe
+      crop_border: 2
 
 # logging settings
 logger:
