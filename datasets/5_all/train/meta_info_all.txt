@@ -3198,9 +3198,6 @@
 0800x4w2.png
 0800x4w3.png
 0800x4w4.png
-meta_info_wild.txt
-5_all
-train
 0001x4d.png
 0001x4m.png
 0001x4w1.png
